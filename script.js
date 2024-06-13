@@ -1,6 +1,7 @@
 const getImg = document.getElementById("getImg");
 const getImgSecondary = document.getElementById("getImg-secondary");
 const cards = document.getElementById("cards-container");
+const searchBar = document.getElementById("searchBar");
 console.log(cards);
 cards.innerHTML = "";
 
@@ -14,6 +15,13 @@ const CardsGenerator = (src, title, photographer, id) => {
   const img = document.createElement("img");
   img.src = src;
   img.alt = title;
+  img.id = id;
+
+  img.style.cursor = "pointer";
+  img.addEventListener("click", (event) => {
+    const imgId = event.target.id;
+    window.location.assign("./detail.html?pexelId=" + img.id);
+  });
 
   const body = document.createElement("div");
   body.className = "card-body";
@@ -52,6 +60,7 @@ const CardsGenerator = (src, title, photographer, id) => {
 };
 
 const cardGen = (event, query, searchQuery) => {
+  cards.innerHTML = "";
   if (query === 1) {
     console.log(query);
     fetch(`https://api.pexels.com/v1/search?query=${searchQuery}`, {
@@ -82,3 +91,12 @@ const eventHandle2 = () => cardGen("click", 1, "hamster");
 
 getImg.onclick = eventHandle;
 getImgSecondary.onclick = eventHandle2;
+
+document.addEventListener("DOMContentLoaded", () => {
+  cardGen("load", 1, "forest");
+});
+
+searchBar.addEventListener("input", (event) => {
+  const searchQuery = event.target.value;
+  cardGen("input", 1, searchQuery);
+});
