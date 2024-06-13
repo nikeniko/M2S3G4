@@ -33,7 +33,7 @@ const CardsGenerator = (src, title, photographer, id) => {
   buttonGroup.className = "btn-group";
 
   const buttonHide = document.createElement("button");
-  buttonHide.className = "btn btn-sm btn-outline-danger";
+  buttonHide.className = "btn btn-sm btn-outline-primary";
   buttonHide.innerText = "Hide";
   buttonHide.addEventListener("click", (event) => {
     col.remove();
